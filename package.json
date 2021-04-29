@@ -4,7 +4,8 @@
   "description": "unofficial node.js wrapper for the shipstation api",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "watch": "tsc -w"
   },
   "author": "Keenan Jaenicke <kjaenick@gmail.com>",
   "license": "MIT",

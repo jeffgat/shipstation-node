@@ -5,13 +5,15 @@ export declare enum RequestMethod {
 }
 export interface IShipstationRequestOptions {
     url: string;
+    country?: 'international' | 'canada';
     method?: RequestMethod;
     useBaseUrl?: boolean;
     data?: any;
 }
 export default class Shipstation {
     authorizationToken: string;
+    authorizationTokenCanada: string;
     private baseUrl;
     constructor();
-    request: ({ url, method, useBaseUrl, data }: IShipstationRequestOptions) => Promise<import("axios").AxiosResponse<any>>;
+    request: ({ country, url, method, useBaseUrl, data, }: IShipstationRequestOptions) => Promise<import("axios").AxiosResponse<any>>;
 }

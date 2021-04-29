@@ -68,7 +68,7 @@ var Orders = (function (_super) {
                         url = this.baseUrl + query;
                         return [4, this.shipstation.request({
                                 url: url,
-                                method: shipstation_1.RequestMethod.GET
+                                method: shipstation_1.RequestMethod.GET,
                             })];
                     case 1:
                         response = _a.sent();
@@ -77,7 +77,7 @@ var Orders = (function (_super) {
             });
         });
     };
-    Orders.prototype.createOrUpdate = function (data) {
+    Orders.prototype.createOrUpdate = function (data, country) {
         return __awaiter(this, void 0, void 0, function () {
             var url, response;
             return __generator(this, function (_a) {
@@ -87,7 +87,8 @@ var Orders = (function (_super) {
                         return [4, this.shipstation.request({
                                 url: url,
                                 method: shipstation_1.RequestMethod.POST,
-                                data: data
+                                data: data,
+                                country: country,
                             })];
                     case 1:
                         response = _a.sent();
@@ -106,7 +107,7 @@ var Orders = (function (_super) {
                         return [4, this.shipstation.request({
                                 url: url,
                                 method: shipstation_1.RequestMethod.POST,
-                                data: data
+                                data: data,
                             })];
                     case 1:
                         response = _a.sent();
@@ -125,7 +126,7 @@ var Orders = (function (_super) {
                         return [4, this.shipstation.request({
                                 url: url,
                                 method: shipstation_1.RequestMethod.POST,
-                                data: data
+                                data: data,
                             })];
                     case 1:
                         response = _a.sent();

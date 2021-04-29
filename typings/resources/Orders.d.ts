@@ -5,7 +5,7 @@ export declare class Orders extends BaseResource<IOrder> {
     protected shipstation: Shipstation;
     constructor(shipstation: Shipstation);
     getAll(opts?: object): Promise<IOrderPaginationResult>;
-    createOrUpdate(data: ICreateOrUpdateOrder): Promise<IOrder>;
+    createOrUpdate(data: ICreateOrUpdateOrder, country?: 'international' | 'canada' | undefined): Promise<IOrder>;
     createOrUpdateBulk(data: ICreateOrUpdateOrder[]): Promise<ICreateOrUpdateOrderBulkResponse>;
     createLabel(data: ICreateLabel): Promise<ICreateLabelResponse>;
 }

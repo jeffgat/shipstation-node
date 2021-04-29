@@ -58,7 +58,7 @@ var Shipments = (function (_super) {
         _this.shipstation = shipstation;
         return _this;
     }
-    Shipments.prototype.getAll = function (opts) {
+    Shipments.prototype.getAll = function (opts, country) {
         return __awaiter(this, void 0, void 0, function () {
             var query, url, response;
             return __generator(this, function (_a) {
@@ -68,7 +68,8 @@ var Shipments = (function (_super) {
                         url = this.baseUrl + query;
                         return [4, this.shipstation.request({
                                 url: url,
-                                method: shipstation_1.RequestMethod.GET
+                                method: shipstation_1.RequestMethod.GET,
+                                country: country,
                             })];
                     case 1:
                         response = _a.sent();
@@ -77,7 +78,7 @@ var Shipments = (function (_super) {
             });
         });
     };
-    Shipments.prototype.getRates = function (data) {
+    Shipments.prototype.getRates = function (data, country) {
         return __awaiter(this, void 0, void 0, function () {
             var url, response;
             return __generator(this, function (_a) {
@@ -88,6 +89,7 @@ var Shipments = (function (_super) {
                                 url: url,
                                 method: shipstation_1.RequestMethod.POST,
                                 data: data,
+                                country: country,
                             })];
                     case 1:
                         response = _a.sent();

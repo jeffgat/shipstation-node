@@ -7,17 +7,18 @@ const stopcock = require('stopcock')
 
 const rateLimitOpts = {
   limit: 40,
-  interval: 1000 * 40
+  interval: 1000 * 40,
 }
 
 export enum RequestMethod {
   GET = 'GET',
   POST = 'POST',
-  DELETE = 'DELETE'
+  DELETE = 'DELETE',
 }
 
 export interface IShipstationRequestOptions {
   url: string
+  country?: 'international' | 'canada'
   method?: RequestMethod
   useBaseUrl?: boolean
   data?: any
@@ -25,6 +26,7 @@ export interface IShipstationRequestOptions {
 
 export default class Shipstation {
   public authorizationToken: string
+  public authorizationTokenCanada: string
   private baseUrl: string = 'https://ssapi.shipstation.com/'
 
   constructor() {
@@ -39,22 +41,31 @@ export default class Shipstation {
       `${process.env.SS_API_KEY}:${process.env.SS_API_SECRET}`
     )
 
+    this.authorizationTokenCanada = base64.encode(
+      `${process.env.SS_API_KEY_CANADA}:${process.env.SS_API_SECRET_CANADA}`
+    )
+
     // Globally define API ratelimiting
     this.request = stopcock(this.request, rateLimitOpts)
   }
 
   public request = ({
+    country = 'international',
     url,
     method = RequestMethod.GET,
     useBaseUrl = true,
-    data
+    data,
   }: IShipstationRequestOptions) => {
     const opts: AxiosRequestConfig = {
       headers: {
-        Authorization: `Basic ${this.authorizationToken}`
+        Authorization: `Basic ${
+          country === 'canada'
+            ? this.authorizationTokenCanada
+            : this.authorizationToken
+        }`,
       },
       method,
-      url: `${useBaseUrl ? this.baseUrl : ''}${url}`
+      url: `${useBaseUrl ? this.baseUrl : ''}${url}`,
     }
 
     if (data) {

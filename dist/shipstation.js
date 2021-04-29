@@ -8,7 +8,7 @@ var base64 = require('base-64');
 var stopcock = require('stopcock');
 var rateLimitOpts = {
     limit: 40,
-    interval: 1000 * 40
+    interval: 1000 * 40,
 };
 var RequestMethod;
 (function (RequestMethod) {
@@ -21,13 +21,15 @@ var Shipstation = (function () {
         var _this = this;
         this.baseUrl = 'https://ssapi.shipstation.com/';
         this.request = function (_a) {
-            var url = _a.url, _b = _a.method, method = _b === void 0 ? RequestMethod.GET : _b, _c = _a.useBaseUrl, useBaseUrl = _c === void 0 ? true : _c, data = _a.data;
+            var _b = _a.country, country = _b === void 0 ? 'international' : _b, url = _a.url, _c = _a.method, method = _c === void 0 ? RequestMethod.GET : _c, _d = _a.useBaseUrl, useBaseUrl = _d === void 0 ? true : _d, data = _a.data;
             var opts = {
                 headers: {
-                    Authorization: "Basic " + _this.authorizationToken
+                    Authorization: "Basic " + (country === 'canada'
+                        ? _this.authorizationTokenCanada
+                        : _this.authorizationToken),
                 },
                 method: method,
-                url: "" + (useBaseUrl ? _this.baseUrl : '') + url
+                url: "" + (useBaseUrl ? _this.baseUrl : '') + url,
             };
             if (data) {
                 opts.data = data;
@@ -38,6 +40,7 @@ var Shipstation = (function () {
             throw new Error("APIKey and API Secret are required! Provided API Key: " + process.env.SS_API_KEY + " API Secret: " + process.env.SS_API_SECRET);
         }
         this.authorizationToken = base64.encode(process.env.SS_API_KEY + ":" + process.env.SS_API_SECRET);
+        this.authorizationTokenCanada = base64.encode(process.env.SS_API_KEY_CANADA + ":" + process.env.SS_API_SECRET_CANADA);
         this.request = stopcock(this.request, rateLimitOpts);
     }
     return Shipstation;
