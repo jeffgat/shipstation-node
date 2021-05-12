@@ -58,7 +58,7 @@ var Orders = (function (_super) {
         _this.shipstation = shipstation;
         return _this;
     }
-    Orders.prototype.getAll = function (opts) {
+    Orders.prototype.getAll = function (opts, country) {
         return __awaiter(this, void 0, void 0, function () {
             var query, url, response;
             return __generator(this, function (_a) {
@@ -69,6 +69,7 @@ var Orders = (function (_super) {
                         return [4, this.shipstation.request({
                                 url: url,
                                 method: shipstation_1.RequestMethod.GET,
+                                country: country,
                             })];
                     case 1:
                         response = _a.sent();

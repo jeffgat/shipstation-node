@@ -14,13 +14,17 @@ export class Orders extends BaseResource<IOrder> {
     super(shipstation, 'orders')
   }
 
-  public async getAll(opts?: object): Promise<IOrderPaginationResult> {
+  public async getAll(
+    opts?: object,
+    country?: 'international' | 'canada' | undefined
+  ): Promise<IOrderPaginationResult> {
     const query = this.buildQueryStringFromParams(opts)
     const url = this.baseUrl + query
 
     const response = await this.shipstation.request({
       url,
       method: RequestMethod.GET,
+      country,
     })
     return response.data as IOrderPaginationResult
   }
